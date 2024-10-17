@@ -1,0 +1,12 @@
+<?php
+header("Access-Control-Allow-Origin: *");
+
+function dbconnection()
+{
+    //$con=mysqli_connect(("10.0.2.81","root","","testconnection"););
+    $con = mysqli_connect("localhost","root","","E_App");
+
+    return $con;
+}
+
+?>
