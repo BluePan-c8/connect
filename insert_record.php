@@ -1,36 +1,20 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-include("dbconnection.php");
+    header("Access-Control-Allow-Origin: *");
+    header ("Accept: application/json");
 
-$con=dbconnection();
+    include("dbconnection.php");
 
-if(isset($_POST["name"])){
-    $name=$_POST["name"];
-} else{
-    return;
-}
+    $con=dbconnection();
+    $query="SELECT `User_name`,`User_role`FROM `User` WHERE User_ID = 1;";
 
+    $exe=mysqli_query($con,$query);
 
-if(isset($_POST["email"])){
-    $email=$_POST["email"];
-} 
-else return;
+    $arr=[];
 
-if(isset($_POST["password"])){
-    $password=$_POST["password"];
-}
-else return;
+    while($row=mysqli_fetch_array($exe)){
+        $arr[]=$row;
+    }
 
-$query="INSERT INTO `User`(`User_name`, `User_password`, `User_email`) VALUES ('$name','$password','$email')";
+    print(json_encode($arr));
 
-$exe=mysqli_query($con,$query);
-
-$arr=[];
-if($exe){
-    $arr['success']='true';
-}
-else{
-    $arr['success']='false';
-}
-print(json_encode($arr))
-?>
+    
